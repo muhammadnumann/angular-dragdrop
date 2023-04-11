@@ -1,35 +1,45 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { ListComponent } from './components/board/list/list.component';
+import { BoardComponent } from './components/board/board/board.component';
+import { SummaryComponent } from './components/board/card/summary/summary.component';
+import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { ContentEditDirective } from './directives/common/content-edit.directive';
 
 describe('AppComponent', () => {
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        FormsModule,
+        BrowserModule,
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        SummaryComponent,
+        ListComponent,
+        BoardComponent,
+        ContentEditDirective
+
       ],
     }).compileComponents();
-  });
+  }));
 
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
+    const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'angular-dragdrop'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('angular-dragdrop');
-  });
 
-  it('should render title', () => {
+  it('should render header', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('angular-dragdrop app is running!');
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('h3').textContent).toContain('Muhammad Numan');
   });
+
+
+
 });
